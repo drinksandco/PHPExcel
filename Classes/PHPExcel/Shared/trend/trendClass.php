@@ -73,7 +73,7 @@ class trendClass
     /**
      * Cached results for each method when trying to identify which provides the best fit
      *
-     * @var PHPExcel_Best_Fit[]
+     * @var PHPExcel_Shared_trend_bestFitClass[]
      **/
     private static $trendCache = array();
 
@@ -113,7 +113,7 @@ class trendClass
             case self::TREND_POLYNOMIAL_6:
                 if (!isset(self::$trendCache[$key])) {
                     $order = substr($trendType, -1);
-                    self::$trendCache[$key] = new PHPExcel_Polynomial_Best_Fit($order, $yValues, $xValues, $const);
+                    self::$trendCache[$key] = new PHPExcel_Shared_trend_polynomialBestFitClass($order, $yValues, $xValues, $const);
                 }
                 return self::$trendCache[$key];
             case self::TREND_BEST_FIT:
@@ -128,7 +128,7 @@ class trendClass
                 if ($trendType != self::TREND_BEST_FIT_NO_POLY) {
                     foreach (self::$trendTypePolynomialOrders as $trendMethod) {
                         $order = substr($trendMethod, -1);
-                        $bestFit[$trendMethod] = new PHPExcel_Polynomial_Best_Fit($order, $yValues, $xValues, $const);
+                        $bestFit[$trendMethod] = new PHPExcel_Shared_trend_polynomialBestFitClass($order, $yValues, $xValues, $const);
                         if ($bestFit[$trendMethod]->getError()) {
                             unset($bestFit[$trendMethod]);
                         } else {
